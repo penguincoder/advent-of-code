@@ -5,8 +5,6 @@ calc_group_score(String)
   -> calc_group_score(re:split(String, ""), 0, false, 0, false, 0).
 calc_group_score([<<>>], Score, _LastCharWasEx, _Depth, _FoundGarbage, CharCount)
   -> {Score, CharCount};
-%calc_group_score(List, Score, LastCharWasEx, Depth, FoundGarbage, CharCount)
-%  when Score < 0 -> calc_group_score(List, 0, LastCharWasEx, Depth, FoundGarbage, CharCount);
 calc_group_score([_Head|Tail], Score, LastCharWasEx, Depth, FoundGarbage, CharCount)
   when LastCharWasEx == true, FoundGarbage == true -> calc_group_score(Tail, Score, false, Depth, true, CharCount);
 calc_group_score([Head|Tail], Score, _LastCharWasEx, Depth, FoundGarbage, CharCount)
