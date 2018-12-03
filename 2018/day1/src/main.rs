@@ -3,10 +3,7 @@ use std::io::{BufRead, BufReader};
 use std::iter::Iterator;
 
 fn print_final_frequency(ints: &Vec<i32>) {
-    let mut frequency = 0;
-    for drift in ints {
-        frequency = frequency + drift;
-    }
+    let frequency: i32 = ints.iter().sum();
     println!("frequency is {}", frequency)
 }
 
