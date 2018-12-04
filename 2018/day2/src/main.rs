@@ -1,9 +1,9 @@
 extern crate edit_distance;
 
+use edit_distance::edit_distance;
 use std::collections::HashMap;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
-use edit_distance::edit_distance;
 
 fn get_char_counts(input: &String) -> (bool, bool) {
     let mut has_two = false;
@@ -41,7 +41,9 @@ fn calc_checksum(lines: &Vec<String>) {
 }
 
 fn find_single_char_difference(lines: &mut Vec<String>) {
-    let line = lines.pop().expect("ran out of lines to find the single char difference!");
+    let line = lines
+        .pop()
+        .expect("ran out of lines to find the single char difference!");
     let mut found = false;
     for other in lines.iter() {
         if edit_distance(&line, other) == 1 {
