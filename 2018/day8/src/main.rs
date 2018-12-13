@@ -45,10 +45,16 @@ fn calc_node_sum(ints: &mut Vec<i32>) -> i32 {
 
 fn main() {
     let mut line = String::new();
-    BufReader::new(File::open("input").unwrap()).read_line(&mut line).unwrap();
+    BufReader::new(File::open("input").unwrap())
+        .read_line(&mut line)
+        .unwrap();
     let len_withoutcrlf = line.trim_right().len();
     line.truncate(len_withoutcrlf);
-    let ints: Vec<i32> = line.as_str().split(" ").map(|i| i.parse::<i32>().unwrap()).collect();
+    let ints: Vec<i32> = line
+        .as_str()
+        .split(" ")
+        .map(|i| i.parse::<i32>().unwrap())
+        .collect();
     let sum = calc_metadata_sum(&mut ints.clone());
     println!("part 1 sum is {}", sum);
     let sum2 = calc_node_sum(&mut ints.clone());

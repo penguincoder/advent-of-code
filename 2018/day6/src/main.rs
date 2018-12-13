@@ -1,7 +1,7 @@
+use std::collections::HashMap;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 use std::iter::Iterator;
-use std::collections::HashMap;
 
 struct Point {
     x: usize,
@@ -20,7 +20,13 @@ impl std::fmt::Display for Point {
     }
 }
 
-fn calc_max_area(points: &Vec<Point>, min_x: usize, min_y: usize, max_x: usize, max_y: usize) -> (u8, usize) {
+fn calc_max_area(
+    points: &Vec<Point>,
+    min_x: usize,
+    min_y: usize,
+    max_x: usize,
+    max_y: usize,
+) -> (u8, usize) {
     let distances = calc_distances(points, min_x, min_y, max_x, max_y);
     let mut areas: HashMap<u8, usize> = HashMap::new();
     for i in min_x..=max_x {
@@ -28,7 +34,10 @@ fn calc_max_area(points: &Vec<Point>, min_x: usize, min_y: usize, max_x: usize, 
             if distances[i][j] == 0 {
                 continue;
             }
-            areas.entry(distances[i][j]).and_modify(|e| *e += 1).or_insert(1);
+            areas
+                .entry(distances[i][j])
+                .and_modify(|e| *e += 1)
+                .or_insert(1);
         }
     }
     let mut index = 0;
@@ -43,19 +52,27 @@ fn calc_max_area(points: &Vec<Point>, min_x: usize, min_y: usize, max_x: usize, 
         }
     }
     for (key, value) in areas.iter() {
-        println!("{}: {} area {}", key, points.get((index - 1) as usize).unwrap(), value);
+        println!(
+            "{}: {} area {}",
+            key,
+            points.get((index - 1) as usize).unwrap(),
+            value
+        );
     }
     (max_area_index, max_area)
 }
 
-fn calc_distances(points: &Vec<Point>, min_x: usize, min_y: usize, max_x: usize, max_y: usize) -> [[u8; 500]; 500] {
+fn calc_distances(
+    points: &Vec<Point>,
+    min_x: usize,
+    min_y: usize,
+    max_x: usize,
+    max_y: usize,
+) -> [[u8; 500]; 500] {
     let mut distances = [[0u8; 500]; 500];
     for i in min_x..=max_x {
         for j in min_y..=max_y {
-            let cur_point = Point {
-                x: i,
-                y: j
-            };
+            let cur_point = Point { x: i, y: j };
             let mut min_dis = 500;
             let mut found_dupe = false;
             let mut min_index = 0;
@@ -114,17 +131,30 @@ fn main() {
     let mut max_x = 0;
     let mut max_y = 0;
     for point in points.iter() {
-        if point.x < min_x { min_x = point.x };
-        if point.x > max_x { max_x = point.x };
-        if point.y < min_y { min_y = point.y };
-        if point.y > max_y { max_y = point.y };
+        if point.x < min_x {
+            min_x = point.x
+        };
+        if point.x > max_x {
+            max_x = point.x
+        };
+        if point.y < min_y {
+            min_y = point.y
+        };
+        if point.y > max_y {
+            max_y = point.y
+        };
     }
     let width = max_x - min_x;
     let height = max_y - min_y;
     println!("map size {}x{}", width, height);
     let (max_area_point, max_area) = calc_max_area(&points, min_x, min_y, max_x, max_y);
     let max_area_point_index = (max_area_point - 1) as usize;
-    println!("max area point {} {} is {}", max_area_point, points.get(max_area_point_index).unwrap(), max_area);
+    println!(
+        "max area point {} {} is {}",
+        max_area_point,
+        points.get(max_area_point_index).unwrap(),
+        max_area
+    );
     let safe_zone = calc_safe_zone(&points, 10000);
     println!("safe zone area {}", safe_zone);
 }

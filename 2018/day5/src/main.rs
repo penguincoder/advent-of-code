@@ -20,7 +20,7 @@ fn calc_remaining_monomers(polymers: &str) -> usize {
 }
 
 fn calc_most_significant_monomer(polymers: &str) {
-    let chars: Vec<char> = (b'a' ..= b'z').map(char::from).collect();
+    let chars: Vec<char> = (b'a'..=b'z').map(char::from).collect();
     let mut min_letter = 'a';
     let mut min_length = polymers.len();
     for mychar in chars.iter() {
@@ -32,7 +32,10 @@ fn calc_most_significant_monomer(polymers: &str) {
             min_length = new_len;
         }
     }
-    println!("minimum new length {} found by replacing {}", min_length, min_letter);
+    println!(
+        "minimum new length {} found by replacing {}",
+        min_length, min_letter
+    );
 }
 
 fn react_monomer(polymers: &str, r: Regex) -> usize {

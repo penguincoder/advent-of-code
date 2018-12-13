@@ -1,7 +1,7 @@
+use std::collections::{BTreeMap, HashMap};
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 use std::iter::Iterator;
-use std::collections::{BTreeMap, HashMap};
 
 type Day7Map = BTreeMap<char, Vec<char>>;
 
@@ -23,7 +23,7 @@ fn calc_order(steps: &mut Day7Map) -> String {
             first_available = *key;
             break;
         }
-    };
+    }
 
     let mut final_result = String::from("");
     if first_available == '_' {
@@ -93,9 +93,12 @@ fn main() {
         let mut chars = line_str.chars();
         let prereq = chars.nth(5).unwrap();
         let target = chars.nth(30).unwrap();
-        steps.entry(target).and_modify(|e| e.push(prereq)).or_insert(vec![prereq]);
+        steps
+            .entry(target)
+            .and_modify(|e| e.push(prereq))
+            .or_insert(vec![prereq]);
         steps.entry(prereq).or_insert(vec![]);
-    };
+    }
     print_map(&steps);
     let order = calc_order(&mut steps.clone());
     println!("final order: {}", order);

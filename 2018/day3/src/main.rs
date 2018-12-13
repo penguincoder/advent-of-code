@@ -9,8 +9,18 @@ fn get_coords_from_line(line: &String) -> (usize, usize, usize, usize) {
     let top_x = top_left_pieces.get(0).unwrap().parse::<usize>().unwrap();
     let top_y = top_left_pieces.get(1).unwrap().parse::<usize>().unwrap();
     let bottom_right_pieces: Vec<&str> = piece_dims.get(1).unwrap().split("x").collect();
-    let bottom_x = top_x + bottom_right_pieces.get(0).unwrap().parse::<usize>().unwrap();
-    let bottom_y = top_y + bottom_right_pieces.get(1).unwrap().parse::<usize>().unwrap();
+    let bottom_x = top_x
+        + bottom_right_pieces
+            .get(0)
+            .unwrap()
+            .parse::<usize>()
+            .unwrap();
+    let bottom_y = top_y
+        + bottom_right_pieces
+            .get(1)
+            .unwrap()
+            .parse::<usize>()
+            .unwrap();
     (top_x, top_y, bottom_x, bottom_y)
 }
 
