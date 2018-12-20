@@ -16,7 +16,11 @@ fn get_score(state: &[char; MAP_SIZE]) -> i64 {
     score
 }
 
-fn run_game(initial_state: String, states: HashMap<String, char>, generations: i64) -> (i64, [i64; MAP_SIZE]) {
+fn run_game(
+    initial_state: String,
+    states: HashMap<String, char>,
+    generations: i64,
+) -> (i64, [i64; MAP_SIZE]) {
     let mut last_state = ['.'; MAP_SIZE];
     for (i, c) in initial_state.char_indices() {
         if c == '#' {
@@ -30,7 +34,7 @@ fn run_game(initial_state: String, states: HashMap<String, char>, generations: i
         let mut next_state = ['.'; MAP_SIZE];
         for i in 2..(MAP_SIZE - 2) {
             let mut key = String::new();
-            for j in i-2..=i+2 {
+            for j in i - 2..=i + 2 {
                 key.push(last_state[j]);
             }
             if let Some(dest_state) = states.get(&key) {
@@ -53,7 +57,14 @@ fn find_big_score(initial_state: String, states: HashMap<String, char>, iteratio
         if diff1 == diff2 {
             if diff2 == diff3 {
                 let sum = ((iterations - i as i64 - 1) * diff1) + scores[i];
-                println!("({} - {}) * {} + {} = {}", iterations - 1, i as i64, diff1, scores[i], sum);
+                println!(
+                    "({} - {}) * {} + {} = {}",
+                    iterations - 1,
+                    i as i64,
+                    diff1,
+                    scores[i],
+                    sum
+                );
                 return sum;
             }
         }

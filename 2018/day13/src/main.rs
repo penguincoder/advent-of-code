@@ -10,7 +10,7 @@ struct Cart {
     x_delta: i8,
     y_delta: i8,
     intersection: u8,
-    removed: bool
+    removed: bool,
 }
 
 impl Cart {
@@ -60,7 +60,11 @@ impl Cart {
     }
 }
 
-fn find_collision(map: &[[char; MAP_SIZE]; MAP_SIZE], carts: &mut Vec<Cart>, find_last: bool) -> (usize, usize, u32) {
+fn find_collision(
+    map: &[[char; MAP_SIZE]; MAP_SIZE],
+    carts: &mut Vec<Cart>,
+    find_last: bool,
+) -> (usize, usize, u32) {
     let mut ticks = 0;
     let cart_len = carts.len();
     loop {
@@ -97,20 +101,20 @@ fn find_collision(map: &[[char; MAP_SIZE]; MAP_SIZE], carts: &mut Vec<Cart>, fin
                     } else {
                         carts[i].turn_left();
                     }
-                },
+                }
                 '\\' => {
                     if carts[i].x_delta == 0 {
                         carts[i].turn_left();
                     } else {
                         carts[i].turn_right();
                     }
-                },
+                }
                 '+' => {
                     carts[i].change_direction_at_intersection();
-                },
+                }
                 ' ' => {
                     panic!("off the rails!");
-                },
+                }
                 _ => {}
             }
             carts[i].x = next_x;
@@ -151,7 +155,7 @@ fn main() {
                     x_delta: 0,
                     y_delta: 1,
                     intersection: 0,
-                    removed: false
+                    removed: false,
                 });
                 map[j][line_number] = '|';
             } else if c == '^' {
@@ -161,7 +165,7 @@ fn main() {
                     x_delta: 0,
                     y_delta: -1,
                     intersection: 0,
-                    removed: false
+                    removed: false,
                 });
                 map[j][line_number] = '|';
             } else if c == '<' {
@@ -171,7 +175,7 @@ fn main() {
                     x_delta: -1,
                     y_delta: 0,
                     intersection: 0,
-                    removed: false
+                    removed: false,
                 });
                 map[j][line_number] = '-';
             } else if c == '>' {
@@ -181,7 +185,7 @@ fn main() {
                     x_delta: 1,
                     y_delta: 0,
                     intersection: 0,
-                    removed: false
+                    removed: false,
                 });
                 map[j][line_number] = '-';
             } else {
@@ -193,5 +197,8 @@ fn main() {
     let (x, y, ticks) = find_collision(&map, &mut carts.clone(), false);
     println!("found collision at {},{} after {} ticks", x, y, ticks);
     let (x, y, ticks) = find_collision(&map, &mut carts.clone(), true);
-    println!("found last remaining cart at {},{} after {} ticks", x, y, ticks);
+    println!(
+        "found last remaining cart at {},{} after {} ticks",
+        x, y, ticks
+    );
 }

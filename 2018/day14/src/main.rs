@@ -30,7 +30,6 @@ fn mutate_chocolate(scores: &mut Vec<u8>, recipes: i32) -> (String, usize) {
     for s in scores.iter() {
         score_str.push((s + 48) as char);
     }
-    //println!("{}", score_str);
     let recipe_str = format!("{}", recipes);
     let recipe_index = score_str.find(recipe_str.as_str()).unwrap();
 

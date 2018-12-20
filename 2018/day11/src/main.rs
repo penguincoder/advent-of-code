@@ -57,7 +57,9 @@ fn find_variable_max_sum(map: &[[i32; 300]; 300]) -> (usize, usize, i32, usize) 
     let mut sum = 0;
     for i in 1..=300 {
         let (new_x, new_y, new_sum) = find_max_sum(map, i);
-        if new_sum == 0 { break; }
+        if new_sum == 0 {
+            break;
+        }
         if new_sum > sum {
             size = i;
             sum = new_sum;
@@ -78,8 +80,14 @@ fn main() {
 
     let map = calc_map_from_serial_number(serial_number);
     let (x, y, sum) = find_max_sum(&map, 3);
-    println!("maximum sum coordinate of ({}, {}) with sum of {}", x, y, sum);
+    println!(
+        "maximum sum coordinate of ({}, {}) with sum of {}",
+        x, y, sum
+    );
 
     let (x, y, sum, size) = find_variable_max_sum(&map);
-    println!("maximum variable sum found at ({}, {}) sum {} with size of {}", x, y, sum, size);
+    println!(
+        "maximum variable sum found at ({}, {}) sum {} with size of {}",
+        x, y, sum, size
+    );
 }
