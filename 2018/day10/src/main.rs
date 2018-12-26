@@ -11,7 +11,7 @@ struct Point {
     x: i32,
     y: i32,
     x_velocity: i32,
-    y_velocity: i32
+    y_velocity: i32,
 }
 
 fn bounding_box(points: &Vec<Point>) -> (i32, i32, i32, i32) {
@@ -21,10 +21,18 @@ fn bounding_box(points: &Vec<Point>) -> (i32, i32, i32, i32) {
     let mut max_y = std::i32::MIN;
 
     for p in points.iter() {
-        if min_x > p.x { min_x = p.x };
-        if min_y > p.y { min_y = p.y };
-        if max_x < p.x { max_x = p.x };
-        if max_y < p.y { max_y = p.y };
+        if min_x > p.x {
+            min_x = p.x
+        };
+        if min_y > p.y {
+            min_y = p.y
+        };
+        if max_x < p.x {
+            max_x = p.x
+        };
+        if max_y < p.y {
+            max_y = p.y
+        };
     }
 
     (min_x, min_y, max_x, max_y)
@@ -55,7 +63,10 @@ fn tick(points: &mut Vec<Point>) -> i32 {
     }
 
     let (min_x, min_y, max_x, max_y) = bounding_box(points);
-    println!("final bounding box: ({}, {}) ({}, {})", min_x, min_y, max_x, max_y);
+    println!(
+        "final bounding box: ({}, {}) ({}, {})",
+        min_x, min_y, max_x, max_y
+    );
     let mut final_set = HashSet::with_capacity(points.len());
     for p in points.iter() {
         final_set.insert((p.x, p.y));
@@ -81,7 +92,8 @@ fn main() {
         .map(|line| line.unwrap())
         .collect();
     let mut points: Vec<Point> = Vec::with_capacity(lines.len());
-    let re = Regex::new(r"^position=<([-| ]\d+), ([-| ]\d+)> velocity=<([-| ]\d), ([-| ]\d)>$").unwrap();
+    let re =
+        Regex::new(r"^position=<([-| ]\d+), ([-| ]\d+)> velocity=<([-| ]\d), ([-| ]\d)>$").unwrap();
     for line in lines.iter() {
         if re.is_match(line) {
             let cap = re.captures(line).unwrap();
@@ -93,7 +105,7 @@ fn main() {
                 x,
                 y,
                 x_velocity,
-                y_velocity
+                y_velocity,
             });
         }
     }
